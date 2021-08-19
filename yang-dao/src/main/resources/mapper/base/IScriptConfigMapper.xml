@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yang.study.mapper.base.IScriptConfigMapper">
+
+    <resultMap id="scriptConfigMap" type="com.yang.study.entity.ScriptConfigEntity">
+        <result column="id" property="id"/>
+        <result column="system_name" property="systemName"/>
+        <result column="namespace_name" property="namespaceName"/>
+        <result column="namespace_desc" property="namespaceDesc"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_by" property="updatedBy"/>
+        <result column="updated_time" property="updatedTime"/>
+    </resultMap>
+
+    <resultMap id="queryResultMap" type="com.yang.study.entity.ScriptConfigQueryEntity">
+        <result column="id" property="id"/>
+        <result column="config_id" property="configId"/>
+        <result column="system_name" property="systemName"/>
+        <result column="namespace_name" property="namespaceName"/>
+        <result column="namespace_desc" property="namespaceDesc"/>
+        <result column="method_type" property="methodType"/>
+        <result column="method_id" property="methodId"/>
+        <result column="method_name" property="methodName"/>
+        <result column="method_sql" property="methodSql"/>
+        <result column="param_map" property="paramMap"/>
+        <result column="result_map" property="resultMap"/>
+    </resultMap>
+
+    <select id="queryInitScriptConfig" parameterType="map" resultMap="queryResultMap">
+        select cd.id,
+               c.system_name,
+               c.namespace_name,
+               c.namespace_desc,
+               cd.config_id,
+               cd.method_type,
+               cd.method_id,
+               cd.method_name,
+               cd.method_sql,
+               cd.param_map,
+               cd.result_map
+        from script_config c
+        inner join script_config_details cd on c.id = cd.config_id
+        <where>
+            <if test="id != null">
+                cd.id= #{id}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>
