@@ -2,7 +2,6 @@ package com.yang.study.web.base.dto;
 
 
 import java.io.Serializable;
-import java.util.HashMap;
 
 import javax.validation.constraints.NotNull;
 
